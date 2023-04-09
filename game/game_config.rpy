@@ -60,3 +60,58 @@ init python:
         L6 = 240000
         L7 = 280000
         L8 = 330000
+    
+    jobDetails = {
+        JobOptions.Unemployed:{
+            'salary': 0,
+            'name': 'Unemployed',
+            'promo':0
+        },
+        JobOptions.FAANG: {
+            'salary': 170000,
+            'name': 'a FAANG SWE',
+            'promo': 1.25
+        },
+        JobOptions.Startup: {
+            'salary': 95000,
+            'name': 'a Startup SWE',
+            'promo': 1.05
+        },
+        JobOptions.Local_IT_Company: {
+            'salary': 110000,
+            'name': 'a Local IT Company SWE',
+            'promo': 1.15
+        },
+        JobOptions.Minimum_Wage: {
+            'salary': 0,
+            'name': 'a Minimum Wage Worker',
+            'promo': 0
+        }
+    }
+
+    #Race biases from the follwoing article: 
+    #https://www.emergingtechbrew.com/stories/2021/05/24/report-finds-tech-racial-gender-pay-disparities-narrowing-still-present
+    #Non binary data from the following article
+    # https://www.codecademy.com/resources/blog/gender-pay-gap-in-tech/
+    RaceBiases = {
+        Race.White: {
+            Gender.Man: 1,
+            Gender.Woman: 0.92,
+            Gender.Nonbinary: 0.7
+        },
+        Race.Asian: {
+            Gender.Man: 1.01,
+            Gender.Woman: 0.95,
+            Gender.Nonbinary: 0.707
+        },
+        Race.Black: {
+            Gender.Man: 0.89,
+            Gender.Woman: 0.90,
+            Gender.Nonbinary: 0.623
+        },
+        Race.Hispanic: {
+            Gender.Man: 0.96,
+            Gender.Woman: 0.90,
+            Gender.Nonbinary: 0.672
+        }
+    }

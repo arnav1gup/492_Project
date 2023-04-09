@@ -183,11 +183,14 @@ init python:
     def select_job(player, job, isPromoOrSwitch=False, useCurrent=False):
         player.jobs.append(job)
         if isPromoOrSwitch:
-            player.salaries.append(player.salaries[-1] * jobDetails[job]['promo'])
+            salary = player.salaries[-1] * jobDetails[job]['promo'] * player.race_bias
+            player.salaries.append(salary)
         elif useCurrent:
+            salary = player.salaries[-1] * player.race_bias
             player.salaries.append(player.salaries[-1])
         else:
-            player.salaries.append(jobDetails[job]['salary'])
+            salary = jobDetails[job]['salary'] * player.race_bias
+            player.salaries.append(salary)
 
     def select_intern(player, job):
         player.jobs.append(job)
@@ -305,33 +308,6 @@ init python:
 
         return player.biased_flip(p)
 
-    jobDetails = {
-        JobOptions.Unemployed:{
-            'salary': 0,
-            'name': 'Unemployed',
-            'promo':0
-        },
-        JobOptions.FAANG: {
-            'salary': 170000,
-            'name': 'a FAANG SWE',
-            'promo': 1.25
-        },
-        JobOptions.Startup: {
-            'salary': 95000,
-            'name': 'a Startup SWE',
-            'promo': 1.05
-        },
-        JobOptions.Local_IT_Company: {
-            'salary': 110000,
-            'name': 'a Local IT Company SWE',
-            'promo': 1.15
-        },
-        JobOptions.Minimum_Wage: {
-            'salary': 0,
-            'name': 'a Minimum Wage Worker',
-            'promo': 0
-        }
-    }
 
     def summary(player):
         job_count = player.promotions + player.job_hops

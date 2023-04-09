@@ -2,10 +2,10 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 585: invalid syntax
-    select_job(user, JobOptions.Local_IT_Company, , useCurrent=True)
-                                                   ^
+File "game/game_config.rpy", line 116: invalid syntax
+            }
+             ^
     
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Sun Apr  9 06:02:09 2023
+Sun Apr  9 16:00:40 2023

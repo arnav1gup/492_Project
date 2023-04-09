@@ -5,6 +5,7 @@ init python:
             self.yoe = 0
             self.race = Race(randint(1, 4))
             self.gender = Gender(randint(1, 3))
+            self.race_bias = RaceBiases[self.race][self.gender]
             self.household_income = Race.income(self.race)
             self.school = SchoolOptions.No_School
             self.school_name = "No School"
