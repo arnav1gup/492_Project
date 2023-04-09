@@ -2,10 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/game_config.rpy", line 116: invalid syntax
-            }
-             ^
-    
+File "game/script.rpy", line 638: is not terminated with a newline. (Check strings and parenthesis.)
+(Perhaps you left out a " at the end of the first line.)
+            a few times to see how different choices and attributes assigned to you can affect your career!"
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Sun Apr  9 16:00:40 2023
+Sun Apr  9 17:35:44 2023

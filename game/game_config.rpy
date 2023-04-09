@@ -75,7 +75,7 @@ init python:
         JobOptions.Startup: {
             'salary': 95000,
             'name': 'a Startup SWE',
-            'promo': 1.05
+            'promo': 1.07
         },
         JobOptions.Local_IT_Company: {
             'salary': 110000,

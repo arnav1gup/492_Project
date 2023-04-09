@@ -183,14 +183,14 @@ init python:
     def select_job(player, job, isPromoOrSwitch=False, useCurrent=False):
         player.jobs.append(job)
         if isPromoOrSwitch:
-            salary = player.salaries[-1] * jobDetails[job]['promo'] * player.race_bias
-            player.salaries.append(salary)
+            salary = player.salaries[-1] * jobDetails[job]['promo']
+            player.salaries.append(round(salary, 2))
         elif useCurrent:
-            salary = player.salaries[-1] * player.race_bias
-            player.salaries.append(player.salaries[-1])
+            salary = player.salaries[-1]
+            player.salaries.append(round(salary, 2))
         else:
             salary = jobDetails[job]['salary'] * player.race_bias
-            player.salaries.append(salary)
+            player.salaries.append(round(salary, 2))
 
     def select_intern(player, job):
         player.jobs.append(job)

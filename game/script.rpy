@@ -460,13 +460,13 @@ label after_job_apply:
         "FAANG SWE (Pay: $170000 per year)" if faang_accept_full:
             $ select_job(user, JobOptions.FAANG)
         
-        "Local IT Company (Pay: $110000 per month)" if local_accept_full:
+        "Local IT Company (Pay: $110000 per year)" if local_accept_full:
             $ select_job(user, JobOptions.Local_IT_Company)
 
-        "Tech Startup (Pay: $95000 per month)" if startup_accept_full:
+        "Tech Startup (Pay: $95000 per year)" if startup_accept_full:
             $ select_job(user, JobOptions.Startup)
     
-    $ current_job = user.jobs[-1]
+    $ current_job = jobDetails[user.jobs[-1]]['name']
     n happy"Congratulation [user.name] you are going to work as [current_job] for your full time job!"
 
     jump after_first_job
@@ -502,9 +502,13 @@ label after_first_job:
     if user.jobs[-1] == JobOptions.Startup:
         show bg startup
         with fade 
-    $ currjob = jobDetails[user.jobs[-1]]['name']
-    $ currsalary = user.salaries[-1]
-    n happy "Congratulations on your completing Year [job_loop] of your fulltime career! You are working as [currjob] and are earning $[currsalary]. Since it's been a year at this position and this job, you can make the decision of whether you would like to 
+    python:
+        currjob = jobDetails[user.jobs[-1]]['name']
+        curr_salary = user.salaries[-1]
+
+    n happy "Congratulations on your completing Year [job_loop] of your fulltime career! You are working as [currjob] and are earning $[curr_salary]." 
+    
+    n neutral "Since it's been a year at this position and this job, you can make the decision of whether you would like to 
     change jobs or apply for a promotion to increase your pay!"
 
     menu:
@@ -530,7 +534,9 @@ label promotion:
         $ select_job(user, user.jobs[-1], isPromoOrSwitch=True)
     else:
         n sad "Unfortunately you were not selected for a promotion! Try again next year!"
-        $ select_job(user, user.jobs[-1])
+        $ select_job(user, user.jobs[-1], useCurrent=True)
+
+    jump after_first_job
 
 label job_switch:
     if user.jobs[-1] == JobOptions.FAANG:
@@ -595,7 +601,7 @@ label job_switch:
                 else:
                     n sad "Unfortunately you were not selected to work for a new Local IT Company SWE! Try again next year!"
                     $ select_job(user, JobOptions.Local_IT_Company, useCurrent=True)
-            "Other Startup SWE Role (Pay: $10000 higher than current job)":
+            "Other Startup SWE Role (Pay: 7\% higher than current job)":
                 $ accepted = job_switch(user, JobOptions.Startup)
                 if (accepted):
                     n happy "Congratulations! You were selected to work for a new Startup SWE!"
