@@ -1,0 +1,30 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/script.rpy", line 479, in script
+    $ select_job(user, JobOptions.Unemployed)
+  File "game/script.rpy", line 479, in <module>
+    $ select_job(user, JobOptions.Unemployed)
+  File "game/jobHelper.rpy", line 190, in select_job
+    player.salaries.append(jobDetails[job].salary)
+AttributeError: 'RevertableDict' object has no attribute 'salary'
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "game/script.rpy", line 479, in script
+    $ select_job(user, JobOptions.Unemployed)
+  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/ast.py", line 1131, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/python.py", line 1061, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script.rpy", line 479, in <module>
+    $ select_job(user, JobOptions.Unemployed)
+  File "game/jobHelper.rpy", line 190, in select_job
+    player.salaries.append(jobDetails[job].salary)
+AttributeError: 'RevertableDict' object has no attribute 'salary'
+
+macOS-10.16-x86_64-i386-64bit x86_64
+Ren'Py 8.0.3.22090809
+CS492_Project 1.0
+Sun Apr  9 06:14:41 2023
