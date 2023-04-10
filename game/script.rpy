@@ -176,7 +176,6 @@ label select_uni:
     elif user.school == SchoolOptions.Community:
         show bg community
         with fade
-    hide narrator thinking
     n happy "Congratulations [user.name] you are going to [user.school_name]!"
 
     jump during_uni
@@ -458,17 +457,17 @@ label after_job_apply:
     menu:
         n neutral"Which full time role would you like to select?"
 
-        "FAANG SWE (Pay: $170000 per year)" if faang_accept_full:
+        "FAANG SWE (Pay: $105K-170K per year)" if faang_accept_full:
             $ select_job(user, JobOptions.FAANG)
         
-        "Local IT Company (Pay: $110000 per year)" if local_accept_full:
+        "Local IT Company (Pay: $68K - 110K per year)" if local_accept_full:
             $ select_job(user, JobOptions.Local_IT_Company)
 
-        "Tech Startup (Pay: $95000 per year)" if startup_accept_full:
+        "Tech Startup (Pay: $58K-95K per year)" if startup_accept_full:
             $ select_job(user, JobOptions.Startup)
     
     $ current_job = jobDetails[user.jobs[-1]]['name']
-    n happy"Congratulation [user.name] you are going to work as [current_job] for your full time job!"
+    n happy"Congratulations [user.name] you are going to work as [current_job] for your full time job!"
 
     jump after_first_job
 
@@ -544,7 +543,7 @@ label promotion:
 label job_switch:
     if user.jobs[-1] == JobOptions.FAANG:
         menu:
-            n thiking "Which job can would you like to apply to switch to (You can only pick one so pick wisely!)"
+            n thinking "Which job can would you like to apply to switch to (You can only pick one so pick wisely!)"
             
             "Other FAANG SWE (25\% higher than current job)":
                 $ accepted_switch = job_switch(user, JobOptions.FAANG)
@@ -573,17 +572,15 @@ label job_switch:
             "Other Local IT Company SWE (Pay: 15\% higher than current job)":
                 $ accepted = job_switch(user, JobOptions.Local_IT_Company)
                 if (accepted_switch):
-                    show narrator happy
                     n happy"Congratulations! You were selected to work for a new Local IT Company SWE!"
                     $ select_job(user, JobOptions.Local_IT_Company, isPromoOrSwitch=True)
                 else:
-                    show narrator sad
                     n sad "Unfortunately you were not selected to work for a new Local IT Company SWE! Try again next year!"
                     $ select_job(user, JobOptions.Local_IT_Company, useCurrent=True)
 
     if user.jobs[-1] == JobOptions.Startup:
         menu:
-            n thiking "Which job can would you like to apply to switch to (You can only pick one so pick wisely!)"
+            n thinking "Which job can would you like to apply to switch to (You can only pick one so pick wisely!)"
             
             "FAANG SWE (Pay: 25\% higher than current job)":
                 $ accepted = job_switch(user, JobOptions.FAANG)
@@ -661,7 +658,7 @@ label after_game:
 
     menu:
         n neutral "Now lets see what outcome would've been produced had you had been a different race! Select one of the races
-        to see would've happened or end the game!"
+        to see what would've happened or end the game!"
 
         "Asian":
             call display(Race.Asian)
