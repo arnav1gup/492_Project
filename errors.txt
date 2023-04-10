@@ -2,28 +2,17 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 618: end of line expected.
-    n1 """ Congratulations on completing your career!"
-         ^
-            "Here is the summary of your game!"
-            #nvl-menu
-            
-            "University Attended: [user.school_name]"
-            "Summer Internship: [user.jobs[0]]"
-            "For your first year you worked as a [user.jobs[1]] and earnered $[user.salaries[0]]"
-            "For your second year you worked as a [user.jobs[2]] and earnered $[user.salaries[1]]"
-            "For your third year you worked as a [user.jobs[3]] and earnered $[user.salaries[2]]"
-            "For your fourth year you worked as a [user.jobs[4]] and earnered $[user.salaries[3]]"
-            "For your fifth year you worked as a [user.jobs[5]] and earnered $[user.salaries[4]]"
-    
-            $ retirement_salary = user.salaries[0] + user.salaries[1] + user.salaries[2] + user.salaries[3] + user.salaries[4]
-            "Final Salary: [user.salary]"
-    
-            #Analysis of different nationalities
-    
-            "Thank you for playing! We hope this game has taught you something about the role that factors you have no control
-            over such as your race, gender and financial conditions can have on your career and life! Make sure to play this game
-            a few times to see how different choices and attributes assigned to you can affect your career!"""
+File "game/script.rpy", line 22: menu statement expects a non-empty block.
+    menu (nvl=True):
+        ^
+
+File "game/script.rpy", line 23: expected statement.
+    "I prefer NVL-mode.":
+                        ^
+
+File "game/script.rpy", line 26: expected statement.
+    "ADV-mode is more for me.":
+                              ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Sun Apr  9 19:23:35 2023
+Mon Apr 10 00:28:08 2023

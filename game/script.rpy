@@ -11,6 +11,21 @@ define n = Character("",  what_slow_cps=50, what_slow_abortable=False, image="na
 
 label start:
 
+    n1 """
+    Welcome to the Game of Life!
+    
+    I am an AI assistant that will be guiding you through this simulation!
+
+    Thuis is some random text that I need
+    """
+
+    show bg question
+    with fade
+    menu:
+        "If you were a black female you would've earned xxx \n If you were a black male you would've earned xxx"
+        "Go Back":
+            pass
+
     show bg welcome
     with fade
     n neutral"Welcome to the Game of Life!"
@@ -19,7 +34,7 @@ label start:
 
     n neutral"The purpose of this game is to show much our circumstances such as race, sex and the income we're born into and have no control on can unknowingly have an affect on our lives."
 
-    n neutral"This game will take you through the multiple stages of becoming a software engineer all the way from high school to to a full time career!"
+    n neutral"This game will take you through the multiple stages of becoming a software engineer (SWE) all the way from high school to to a full time career!"
 
     n neutral"You will be assigned a Race, Gender, and Household Income. Then you shall maneuver through you career making decisions each step along the way that will be influenced by these factors! Good luck!"
     $ povname = renpy.input("To start the game, please enter your name: ", length=32)
@@ -612,19 +627,18 @@ label job_switch:
                     $ select_job(user, JobOptions.Startup, useCurrent=True)
     jump after_first_job
 
+python:
+    gender = user.getGender()
+    race = user.getRace()
+    retirement_salary = user.salaries[0] + user.salaries[1] + user.salaries[2] + user.salaries[3] + user.salaries[4]
+    internship = jobDetails[user.jobs[0]]['name']
+    job1 = jobDetails[user.jobs[1]]['name']
+    job2 = jobDetails[user.jobs[2]]['name']
+    job3 = jobDetails[user.jobs[3]]['name']
+    job4 = jobDetails[user.jobs[4]]['name']
+    job5 = jobDetails[user.jobs[5]]['name']
 
 label end_game:
-
-        python:
-            gender = user.getGender()
-            race = user.getRace()
-            retirement_salary = user.salaries[0] + user.salaries[1] + user.salaries[2] + user.salaries[3] + user.salaries[4]
-            internship = jobDetails[user.jobs[0]]['name']
-            job1 = jobDetails[user.jobs[1]]['name']
-            job2 = jobDetails[user.jobs[2]]['name']
-            job3 = jobDetails[user.jobs[3]]['name']
-            job4 = jobDetails[user.jobs[4]]['name']
-            job5 = jobDetails[user.jobs[5]]['name']
 
         n1 """ Congratulations on completing your career!
         Here is the summary of your game!
@@ -645,12 +659,90 @@ label end_game:
         
         For your fifth year you worked as a [job5] and earned $[user.salaries[4]]
 
-        Final Salary: [retirement_salary]
+        Final Salary: [retirement_salary]"""
 
-        {clear}
+        jump after_game
 
-        Thank you for playing! We hope this game has taught you something about the role that factors you have no control
-        over such as your race, gender and financial conditions can have on your career and life! Make sure to play this game
-        a few times to see how different choices and attributes assigned to you can affect your career!"""
+label after_game:
+    show bg question
+    with fade
 
-        return
+    menu:
+        n neutral "Now lets see what outcome would've been produced had you had been a different race! Select one of the races
+        to see would've happened or end the game!"
+
+        "Asian":
+            call display(Race.Asian)
+            pass
+        "Black":
+            call display(Race.Black)
+            pass
+        "Hispanic":
+            call display(Race.Hispanic)
+            pass
+        "White":
+            call display(Race.White)
+            pass
+        "End Game":
+            jump ending
+            pass
+
+label display(race=None):
+    python:
+        base_salary = retirement_salary/RaceBiases[user.race][user.gender]
+        male_salary = base_salary * RaceBiases[race][Gender.Male]
+        female_salary = base_salary * RaceBiases[race][Gender.Woman]
+        non_binary_sal = base_salary * RaceBiases[race][Gender.Nonbinary]
+        user_race = user.getRace()
+        user_gender = user.getGender()
+
+    if race == Race.White:
+        n1 """
+        Your race was: [user.race] and your gender was [user.gender] 
+
+        As a white man, you would've earned approximately $[male_salary] over your career!
+
+        As a white woman, you would've earned approximately $[woman_salary] over your career!
+
+        As a white non-binary person, you wouldv'e earned approximately $[non_binary_sal] over your career!
+        """
+    if race == Race.Asian:
+        n1 """
+        Your race was: [user.race] and your gender was [user.gender] 
+
+        As an asian man, you would've earned approximately $[male_salary] over your career!
+
+        As an asian woman, you would've earned approximately $[woman_salary] over your career!
+
+        As an asian non-binary person, you wouldv'e earned approximately $[non_binary_sal] over your career!
+        """
+    if race == Race.Hispanic:
+        n1 """
+        Your race was: [user.race] and your gender was [user.gender] 
+
+        As a hispanic man, you would've earned approximately $[male_salary] over your career!
+
+        As a hispanic woman, you would've earned approximately $[woman_salary] over your career!
+
+        As a asian non-binary person, you wouldv'e earned approximately $[non_binary_sal] over your career!
+        """
+    if race == Race.Black:
+        n1 """
+        Your race was: [user.race] and your gender was [user.gender] 
+
+        As a black man, you would've earned approximately $[male_salary] over your career!
+
+        As a black woman, you would've earned approximately $[woman_salary] over your career!
+
+        As a black non-binary person, you wouldv'e earned approximately $[non_binary_sal] over your career!
+        """
+    
+    jump after_game
+
+label ending:
+    n1 "Thank you for playing! We hope this game has taught you something about the role that factors you have no control
+    over such as your race, gender and financial conditions can have on your career and life! Make sure to play this game
+    a few times to see how different choices and attributes assigned to you can affect your career!"
+
+    return
+
