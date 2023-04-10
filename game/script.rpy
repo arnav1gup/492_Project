@@ -30,7 +30,7 @@ label start:
         gender = user.getGender()
         race = user.getRace()
 
-    n neutral"For this simulation you have been assigned the following attributes \n Income: [user.household_income], Race: [race], Gender: [gender]"
+    n neutral"For this simulation you have been assigned the following attributes \n Household Income: $ [user.household_income], Race: [race], Gender: [gender]"
     n neutral"Keep these attributes in mind when making your choices!"
     #if time create some kind of stats panel
 
@@ -207,7 +207,7 @@ label financial_aid:
                 $ financial_aid_apply = True
                 $ accepted_unis.remove(SchoolOptions.Ivey)
                 if len(accepted_unis) == 0:
-                    $ no_accept = True
+                    $ no_accept_unis = True
                 jump select_uni
 
         "No, I do not want to apply for financial aid":
@@ -239,7 +239,7 @@ label during_uni:
 
     menu:
         n thinking "Would you Like to Apply to a FAANG SWE internship? FAANG jobs have competitve pay, and require high skill! They are highly selective and only 
-        accept the best of the best and only hire the best!"
+        hire the best!"
         "Yes":
             $ faang_intern_apply = True
         
@@ -613,27 +613,37 @@ label job_switch:
 
 define n1 = nvl_narrator
 
-label ending:
+label end_game:
 
-        n1 "Congratulations on completing your career!"
-        "Here is the summary of your game!"
-        #nvl-menu
+        python:
+            gender = user.getGender()
+            race = user.getRace()
+            retirement_salary = user.salaries[0] + user.salaries[1] + user.salaries[2] + user.salaries[3] + user.salaries[4]
+            internship = jobDetails[user.jobs[0]]['name']
+            job1 = jobDetails[user.jobs[1]]['name']
+            job2 = jobDetails[user.jobs[2]]['name']
+            job3 = jobDetails[user.jobs[3]]['name']
+            job4 = jobDetails[user.jobs[4]]['name']
+            job5 = jobDetails[user.jobs[5]]['name']
+
+        n1 """ Congratulations on completing your career!
+        Here is the summary of your game!
         
-        "University Attended: [user.school_name]"
-        "Summer Internship: [user.jobs[0]]"
-        "For your first year you worked as a [user.jobs[1]] and earnered $[user.salaries[0]]"
-        "For your second year you worked as a [user.jobs[2]] and earnered $[user.salaries[1]]"
-        "For your third year you worked as a [user.jobs[3]] and earnered $[user.salaries[2]]"
-        "For your fourth year you worked as a [user.jobs[4]] and earnered $[user.salaries[3]]"
-        "For your fifth year you worked as a [user.jobs[5]] and earnered $[user.salaries[4]]"
+        You were assigned the following stats:
+        Income: $[user.household_income], Race: [race], Gender: [gender]
+        University Attended: [user.school_name]
+        Summer Internship: [user.jobs[0]]
 
-        $ retirement_salary = user.salaries[0] + user.salaries[1] + user.salaries[2] + user.salaries[3] + user.salaries[4]
-        "Final Salary: [user.salary]"
+        For your first year you worked as a [job1] and earned $[user.salaries[0]]
+        For your second year you worked as a [job2] and earned $[user.salaries[1]]
+        For your third year you worked as a [job3] and earned $[user.salaries[2]]
+        For your fourth year you worked as a [job4] and earned $[user.salaries[3]]
+        For your fifth year you worked as a [job5] and earned $[user.salaries[4]]
 
-        #Analysis of different nationalities
+        Final Salary: [retirement_salary]
 
-        "Thank you for playing! We hope this game has taught you something about the role that factors you have no control
+        Thank you for playing! We hope this game has taught you something about the role that factors you have no control
         over such as your race, gender and financial conditions can have on your career and life! Make sure to play this game
-        a few times to see how different choices and attributes assigned to you can affect your career!"
+        a few times to see how different choices and attributes assigned to you can affect your career!"""
 
         return
