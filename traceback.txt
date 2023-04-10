@@ -1,22 +1,28 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 492, in script
-    jump end_game
-ScriptError: could not find label 'end_game'.
+  File "game/script.rpy", line 562, in script
+    if (accepted_switch):
+  File "game/script.rpy", line 562, in <module>
+    if (accepted_switch):
+NameError: name 'accepted_switch' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 492, in script
-    jump end_game
-  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/ast.py", line 1974, in execute
-    rv = renpy.game.script.lookup(target)
-  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/script.py", line 927, in lookup
-    raise ScriptError("could not find label '%s'." % str(original))
-ScriptError: could not find label 'end_game'.
+  File "game/script.rpy", line 562, in script
+    if (accepted_switch):
+  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/ast.py", line 2115, in execute
+    if renpy.python.py_eval(condition):
+  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/python.py", line 1092, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/python.py", line 1085, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 562, in <module>
+    if (accepted_switch):
+NameError: name 'accepted_switch' is not defined
 
 macOS-10.16-x86_64-i386-64bit x86_64
 Ren'Py 8.0.3.22090809
 CS492_Project 1.0
-Sun Apr  9 17:54:45 2023
+Sun Apr  9 20:19:58 2023

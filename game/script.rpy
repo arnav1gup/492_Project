@@ -558,7 +558,7 @@ label job_switch:
             n thinking "Which job can would you like to apply to switch to (You can only pick one so pick wisely!)"
             
             "FAANG SWE (Pay: 25\% higher than current job)":
-                $ accepted = job_switch(user, JobOptions.FAANG)
+                $ accepted_switch = job_switch(user, JobOptions.FAANG)
                 if (accepted_switch):
                     show bg faang
                     n happy"Congratulations! You were selected to work for a new FAANG SWE!"
