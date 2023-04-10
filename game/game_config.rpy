@@ -9,16 +9,40 @@ init python:
         Asian = 4
         All_Races = 5 # not an option for game.
 
-        # https://www.census.gov/content/dam/Census/library/visualizations/2022/demo/p60-276/figure2.pdf
+        # https://www.statista.com/statistics/203207/percentage-distribution-of-household-income-in-the-us-by-ethnic-group/
         # median household income by race.
         def income(race):
+            number_gen = randint(1, 100)
             if race == Race.White:
-                return 78000
+                if number_gen <= 47:
+                    return 68000
+                elif number_gen <= 76:
+                    return 113000
+                else:
+                    return 190000
             elif race == Race.Black:
+                if number_gen <= 68:
+                    return 63000
+                elif number_gen <= 89:
+                    return 107000
+                else:
+                    return 180000
                 return 48000
             elif race == Race.Hispanic:
+                if number_gen <= 61:
+                    return 64000
+                elif number_gen <= 87:
+                    return 109000
+                else:
+                    return 180000
                 return 58000
             elif race == Race.Asian:
+                if number_gen < 38:
+                    return 70000
+                elif number_gen < 65:
+                    return 120000
+                else:
+                    return 205000
                 return 101000
             elif race == Race.All_Races:
                 return 78000

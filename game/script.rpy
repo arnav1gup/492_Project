@@ -5,6 +5,7 @@
 
 define pov = Character("[povname]")
 
+define n1 = Character("", kind=nvl, what_slow_cps_multiplier=0.5, what_slow_abortable=False, image="nar")
 define n = Character("",  what_slow_cps=50, what_slow_abortable=False, image="nar")
 # The game starts here.
 
@@ -611,7 +612,6 @@ label job_switch:
                     $ select_job(user, JobOptions.Startup, useCurrent=True)
     jump after_first_job
 
-define n1 = nvl_narrator
 
 label end_game:
 
@@ -629,18 +629,25 @@ label end_game:
         n1 """ Congratulations on completing your career!
         Here is the summary of your game!
         
-        You were assigned the following stats:
-        Income: $[user.household_income], Race: [race], Gender: [gender]
+        You were assigned the following stats: Income: $[user.household_income], Race: [race], Gender: [gender]
+        
         University Attended: [user.school_name]
+        
         Summer Internship: [user.jobs[0]]
 
         For your first year you worked as a [job1] and earned $[user.salaries[0]]
+        
         For your second year you worked as a [job2] and earned $[user.salaries[1]]
+        
         For your third year you worked as a [job3] and earned $[user.salaries[2]]
+        
         For your fourth year you worked as a [job4] and earned $[user.salaries[3]]
+        
         For your fifth year you worked as a [job5] and earned $[user.salaries[4]]
 
         Final Salary: [retirement_salary]
+
+        {clear}
 
         Thank you for playing! We hope this game has taught you something about the role that factors you have no control
         over such as your race, gender and financial conditions can have on your career and life! Make sure to play this game

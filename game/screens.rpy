@@ -1287,7 +1287,9 @@ screen nvl(dialogue, items=None):
 
     window:
         style "nvl_window"
-
+        top_padding 90
+        bottom_padding 90
+        
         has vbox:
             spacing gui.nvl_spacing
 
