@@ -5,26 +5,11 @@
 
 define pov = Character("[povname]")
 
-define n1 = Character("", kind=nvl, what_slow_cps_multiplier=0.5, what_slow_abortable=False, image="nar")
+define n1 = Character("", kind=nvl, what_slow_cps_multiplier=0.5, what_slow_abortable=False)
 define n = Character("",  what_slow_cps=50, what_slow_abortable=False, image="nar")
 # The game starts here.
 
 label start:
-
-    n1 """
-    Welcome to the Game of Life!
-    
-    I am an AI assistant that will be guiding you through this simulation!
-
-    Thuis is some random text that I need
-    """
-
-    show bg question
-    with fade
-    menu:
-        "If you were a black female you would've earned xxx \n If you were a black male you would've earned xxx"
-        "Go Back":
-            pass
 
     show bg welcome
     with fade
@@ -504,8 +489,7 @@ label after_first_job:
     pause 1  
 
     $ job_loop += 1
-    if job_loop == 5:
-        jump end_game
+    
     if user.jobs[-1] == JobOptions.Unemployed:
         show bg application
         with fade
@@ -524,6 +508,9 @@ label after_first_job:
 
     n happy "Congratulations on your completing Year [job_loop] of your fulltime career! You are working as [currjob] and are earning $[curr_salary]." 
     
+    if job_loop == 5:
+        jump end_game
+
     n neutral "Since it's been a year at this position and this job, you can make the decision of whether you would like to 
     change jobs or apply for a promotion to increase your pay!"
 
@@ -627,41 +614,46 @@ label job_switch:
                     $ select_job(user, JobOptions.Startup, useCurrent=True)
     jump after_first_job
 
-python:
-    gender = user.getGender()
-    race = user.getRace()
-    retirement_salary = user.salaries[0] + user.salaries[1] + user.salaries[2] + user.salaries[3] + user.salaries[4]
-    internship = jobDetails[user.jobs[0]]['name']
-    job1 = jobDetails[user.jobs[1]]['name']
-    job2 = jobDetails[user.jobs[2]]['name']
-    job3 = jobDetails[user.jobs[3]]['name']
-    job4 = jobDetails[user.jobs[4]]['name']
-    job5 = jobDetails[user.jobs[5]]['name']
-
 label end_game:
+    python:
+        gender = user.getGender()
+        race = user.getRace()
+        retirement_salary = user.salaries[0] + user.salaries[1] + user.salaries[2] + user.salaries[3] + user.salaries[4]
+        job0 = jobDetails[user.jobs[0]]['name']
 
-        n1 """ Congratulations on completing your career!
-        Here is the summary of your game!
-        
-        You were assigned the following stats: Income: $[user.household_income], Race: [race], Gender: [gender]
-        
-        University Attended: [user.school_name]
-        
-        Summer Internship: [user.jobs[0]]
+        job1 = jobDetails[user.jobs[1]]['name']
+        job2 = jobDetails[user.jobs[2]]['name']
+        job3 = jobDetails[user.jobs[3]]['name']
+        job4 = jobDetails[user.jobs[4]]['name']
+        job5 = jobDetails[user.jobs[5]]['name']
 
-        For your first year you worked as a [job1] and earned $[user.salaries[0]]
-        
-        For your second year you worked as a [job2] and earned $[user.salaries[1]]
-        
-        For your third year you worked as a [job3] and earned $[user.salaries[2]]
-        
-        For your fourth year you worked as a [job4] and earned $[user.salaries[3]]
-        
-        For your fifth year you worked as a [job5] and earned $[user.salaries[4]]
+    hide bg one year
 
-        Final Salary: [retirement_salary]"""
+    n1 """ Congratulations on completing your 5 year career!
+    Here is the summary of your statistics!
+    
+    You were assigned the following stats: Household Income: $[user.household_income], Race: [race], Gender: [gender]
+    
+    University Attended: [user.school_name]
+    
+    Summer Internship: [job0]
 
-        jump after_game
+    For your first year you worked as a [job1] and earned $[user.salaries[0]]
+    
+    For your second year you worked as a [job2] and earned $[user.salaries[1]]
+    
+    For your third year you worked as a [job3] and earned $[user.salaries[2]]
+    
+    For your fourth year you worked as a [job4] and earned $[user.salaries[3]]
+    
+    For your fifth year you worked as a [job5] and earned $[user.salaries[4]]
+
+    Total Amount Earned: $[retirement_salary]
+    
+    {clear}
+    """
+
+    jump after_game
 
 label after_game:
     show bg question
@@ -673,68 +665,75 @@ label after_game:
 
         "Asian":
             call display(Race.Asian)
-            pass
         "Black":
             call display(Race.Black)
-            pass
         "Hispanic":
             call display(Race.Hispanic)
-            pass
         "White":
             call display(Race.White)
-            pass
         "End Game":
             jump ending
-            pass
 
 label display(race=None):
     python:
         base_salary = retirement_salary/RaceBiases[user.race][user.gender]
-        male_salary = base_salary * RaceBiases[race][Gender.Male]
-        female_salary = base_salary * RaceBiases[race][Gender.Woman]
-        non_binary_sal = base_salary * RaceBiases[race][Gender.Nonbinary]
+        male_salary = round(base_salary * RaceBiases[race][Gender.Man], 2)
+        woman_salary = round(base_salary * RaceBiases[race][Gender.Woman], 2)
+        non_binary_sal = round(base_salary * RaceBiases[race][Gender.Nonbinary], 2)
         user_race = user.getRace()
         user_gender = user.getGender()
 
     if race == Race.White:
         n1 """
-        Your race was: [user.race] and your gender was [user.gender] 
+        Your race was: [user_race] and your gender was: [user_gender] and earned $[retirement_salary]
 
         As a white man, you would've earned approximately $[male_salary] over your career!
 
         As a white woman, you would've earned approximately $[woman_salary] over your career!
 
         As a white non-binary person, you wouldv'e earned approximately $[non_binary_sal] over your career!
+
+        {clear}
+
         """
     if race == Race.Asian:
         n1 """
-        Your race was: [user.race] and your gender was [user.gender] 
+        Your race was: [user_race] and your gender was: [user_gender] and earned $[retirement_salary]
 
         As an asian man, you would've earned approximately $[male_salary] over your career!
 
         As an asian woman, you would've earned approximately $[woman_salary] over your career!
 
         As an asian non-binary person, you wouldv'e earned approximately $[non_binary_sal] over your career!
+
+        {clear}
+
         """
     if race == Race.Hispanic:
         n1 """
-        Your race was: [user.race] and your gender was [user.gender] 
+        Your race was: [user_race] and your gender was: [user_gender] and earned $[retirement_salary]
 
         As a hispanic man, you would've earned approximately $[male_salary] over your career!
 
         As a hispanic woman, you would've earned approximately $[woman_salary] over your career!
 
-        As a asian non-binary person, you wouldv'e earned approximately $[non_binary_sal] over your career!
+        As a hispanic non-binary person, you wouldv'e earned approximately $[non_binary_sal] over your career!
+        
+        {clear}
+
         """
     if race == Race.Black:
         n1 """
-        Your race was: [user.race] and your gender was [user.gender] 
+        Your race was: [user_race] and your gender was: [user_gender] and earned $[retirement_salary]
 
         As a black man, you would've earned approximately $[male_salary] over your career!
 
         As a black woman, you would've earned approximately $[woman_salary] over your career!
 
-        As a black non-binary person, you wouldv'e earned approximately $[non_binary_sal] over your career!
+        As a black non-binary person, you wouldv'e earned approximately $[non_binary_sal] over your career
+
+        {clear}
+
         """
     
     jump after_game
@@ -743,6 +742,6 @@ label ending:
     n1 "Thank you for playing! We hope this game has taught you something about the role that factors you have no control
     over such as your race, gender and financial conditions can have on your career and life! Make sure to play this game
     a few times to see how different choices and attributes assigned to you can affect your career!"
-
+    $ renpy.set_return_stack([])
     return
 

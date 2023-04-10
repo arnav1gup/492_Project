@@ -2,17 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 22: menu statement expects a non-empty block.
-    menu (nvl=True):
-        ^
-
-File "game/script.rpy", line 23: expected statement.
-    "I prefer NVL-mode.":
-                        ^
-
-File "game/script.rpy", line 26: expected statement.
-    "ADV-mode is more for me.":
-                              ^
+File "game/script.rpy", line 681: expected menuitem
+    window hide
+    ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Mon Apr 10 00:28:08 2023
+Mon Apr 10 02:23:25 2023

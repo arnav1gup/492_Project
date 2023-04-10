@@ -1,28 +1,42 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 15, in script
-    n1 neutral "Congratulations on completing your career!"
-Exception: Say has image attributes ('neutral',), but there's no image tag associated with the speaking character.
+  File "game/script.rpy", line 669, in script call
+    call display(Race.Black)
+  File "game/script.rpy", line 671, in script call
+    call display(Race.Hispanic)
+  File "game/script.rpy", line 667, in script call
+    call display(Race.Asian)
+  File "game/script.rpy", line 671, in script call
+    call display(Race.Hispanic)
+  File "game/script.rpy", line 678, in script
+    python:
+  File "game/script.rpy", line 680, in <module>
+    male_salary = round(base_salary * RaceBiases[race][Gender.Man], 2)
+KeyError: None
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 15, in script
-    n1 neutral "Congratulations on completing your career!"
-  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/ast.py", line 921, in execute
-    renpy.exports.say(who, what, *args, **kwargs)
-  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/exports.py", line 1373, in say
-    who(what, *args, **kwargs)
-  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/character.py", line 1206, in __call__
-    old_attr_state = self.handle_say_attributes(False, interact)
-  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/character.py", line 1030, in handle_say_attributes
-    if self.resolve_say_attributes(predicting, attrs):
-  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/character.py", line 956, in resolve_say_attributes
-    raise Exception("Say has image attributes %r, but there's no image tag associated with the speaking character." % (attrs,))
-Exception: Say has image attributes ('neutral',), but there's no image tag associated with the speaking character.
+  File "game/script.rpy", line 669, in script call
+    call display(Race.Black)
+  File "game/script.rpy", line 671, in script call
+    call display(Race.Hispanic)
+  File "game/script.rpy", line 667, in script call
+    call display(Race.Asian)
+  File "game/script.rpy", line 671, in script call
+    call display(Race.Hispanic)
+  File "game/script.rpy", line 678, in script
+    python:
+  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/ast.py", line 1131, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "/Users/Arnav1/Documents/renpy-8.0.3-sdk/renpy/python.py", line 1061, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script.rpy", line 680, in <module>
+    male_salary = round(base_salary * RaceBiases[race][Gender.Man], 2)
+KeyError: None
 
 macOS-10.16-x86_64-i386-64bit x86_64
 Ren'Py 8.0.3.22090809
 CS492_Project 1.0
-Sun Apr  9 23:21:41 2023
+Mon Apr 10 03:25:12 2023
